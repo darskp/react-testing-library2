@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders the Learn React link in the header', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
-
 describe('App Component', () => {
+  test('renders the Learn React link in the header', () => {
+    render(<App />)
+    const linkElement = screen.getByText(/learn react/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+
   test('displays a list with 3 list items', () => {
     render(<App />);
     const listItems = screen.queryAllByRole('listitem');
@@ -20,9 +20,9 @@ describe('App Component', () => {
     expect(listElement.length).toBe(1);
   });
 
-  test('displays an element with a role of myId1', () => {
+  test('displays an element with a test id myid', () => {
     render(<App />);
-    const element = screen.queryAllByRole('myId1');
+    const element = screen.queryAllByTestId('myId');
     expect(element.length).toBe(1);
   });
 
@@ -36,7 +36,6 @@ describe('App Component', () => {
     render(<App />);
     const headingElement = screen.getByRole('heading');
     expect(headingElement).toBeInTheDocument();
-    screen.debug();
   });
 
   test('displays a span element with the title sum and content 30', () => {
@@ -46,10 +45,9 @@ describe('App Component', () => {
     expect(sumElement.textContent).toBe('30');
   });
 
-  test.only('displays a image', () => {
+  test('displays a image', () => {
     render(<App />)
     const ele = screen.queryAllByRole('img');
     expect(ele).toHaveLength(1)
-    screen.debug()
   });
 });

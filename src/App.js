@@ -25,7 +25,7 @@ function App() {
         <li>D2</li>
         <li>D3</li>
       </ul>
-      <h1 data-testid="myId" aria-role="myId1">Test id</h1>
+      <h1 data-testid="myId">Test id</h1>
       <span title='sum'>{a+b}</span>
       </header>
       <Login/>

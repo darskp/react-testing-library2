@@ -48,36 +48,57 @@ display: flex;
 align-items: center;
 justify-content: center;
 background-color: #282c34;
-
+flex-direction: column;
 }
 .container form{
 display: flex;
 flex-direction: column;
 
 }
-
-.container form >*{
+.user{
+color: white;
+margin-bottom: 10px;
+}
+.container form >input,button{
 margin-bottom: 15px;
 height: 45px;
 width: 200px;
 color:#282c34;
-font-size: 20px;
+font-size: 15px;
 outline: none;
 padding: 5px 10px;
 border: none;
 border-radius: 5px;
 background-color: aliceblue;
 }
+.container form > span{
+margin-top: 15px;
+color: red;
+font-size: 12px;
+}
 
 .container form button{
   margin-bottom: 0px;
   font-size: 16px;
   height: 35px;
-cursor: pointer;
 color: white;
 background-color: rgb(9, 88, 88);
 font-weight: bold;
-}
-.container form button:hover{
+transition: 0.2s;
+cursor: pointer;
 
 }
+
+.container form button:hover {
+  opacity: 0.8;
+}
+.container form button:disabled{
+background-color: rgb(5, 7, 7);
+cursor: not-allowed;
+
+}
+.container form button:disabled:hover{
+background-color: rgb(5, 7, 7);
+cursor: not-allowed;
+}
+
