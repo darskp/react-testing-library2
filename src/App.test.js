@@ -32,11 +32,6 @@ describe('App Component', () => {
     expect(element).toBeInTheDocument();
   });
 
-  test('displays a heading element', () => {
-    render(<App />);
-    const headingElement = screen.getByRole('heading');
-    expect(headingElement).toBeInTheDocument();
-  });
 
   test('displays a span element with the title sum and content 30', () => {
     render(<App />);

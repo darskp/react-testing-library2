@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Login from "./login";
+import axios from "axios";
 
 jest.mock("axios", () => ({
     __esModule: true,
@@ -11,8 +12,10 @@ jest.mock("axios", () => ({
     }
 }));
 
+
+
 function renderComponent() {
-  render(<Login />);
+    render(<Login />);
 }
 
 test("username input should be rendered", () => {
@@ -90,19 +93,18 @@ test("loading should not be rendered", () => {
     expect(ele).not.toHaveTextContent(/wait/i)
 })
 
-
-test("loading should be rendered when click", () => {
+test("loading should be rendered when click", async () => {
     renderComponent();
     const ele = screen.queryByText(new RegExp(`loGIN`, 'i'));
     const userEle = screen.queryByPlaceholderText(new RegExp(`Enter your username`, 'i'));
     const passwordEle = screen.queryByPlaceholderText(new RegExp(`Enter your pAssword`, 'i'));
-    const testuserValue = "Darshan"
-    const testpasswordValue = "darshan@123#"
-    fireEvent.change(userEle, { target: { value: testuserValue } })
-    fireEvent.change(passwordEle, { target: { value: testpasswordValue } })
-    fireEvent.click(ele)
-    expect(ele).toHaveTextContent(/wait/i)
-})
+    const testuserValue = "Darshan";
+    const testpasswordValue = "darshan@123#";
+    fireEvent.change(userEle, { target: { value: testuserValue } });
+    fireEvent.change(passwordEle, { target: { value: testpasswordValue } });
+    fireEvent.click(ele);
+    await waitFor(() => expect(ele).toHaveTextContent(/wait/i));
+});
 
 test("loading should be visible after fetching", async () => {
     renderComponent();
@@ -119,34 +121,17 @@ test("loading should be visible after fetching", async () => {
 })
 
 
-test("loading should be visible after fetching", async () => {
+test("username text should be visible after fetching", async () => {
     renderComponent();
-    const ele = screen.queryByText(new RegExp(`loGIN`, 'i'));
+    const ele = screen.getByRole("button");
     const userEle = screen.queryByPlaceholderText(new RegExp(`Enter your username`, 'i'));
     const passwordEle = screen.queryByPlaceholderText(new RegExp(`Enter your pAssword`, 'i'));
-    const testuserValue = "Darshan"
-    const testpasswordValue = "darshan@123#"
-    fireEvent.change(userEle, { target: { value: testuserValue } })
-    fireEvent.change(passwordEle, { target: { value: testpasswordValue } })
-    fireEvent.click(ele)
-    await waitFor(() =>
-        expect(ele).not.toHaveTextContent(/wait/i)
-    )
-})
+    const testuserValue = "Darshan";
+    const testpasswordValue = "darshan@123#";
 
-
-test("username text should be visible after fetching", async () => {
-  renderComponent();
-  const ele = screen.getByRole("button");
-  const userEle = screen.queryByPlaceholderText(new RegExp(`Enter your username`, 'i'));
-  const passwordEle = screen.queryByPlaceholderText(new RegExp(`Enter your pAssword`, 'i'));
-  const testuserValue = "Darshan";
-  const testpasswordValue = "darshan@123#";
-
-  fireEvent.change(userEle, { target: { value: testuserValue } });
-  fireEvent.change(passwordEle, { target: { value: testpasswordValue } });
-  fireEvent.click(ele);
-
-  const userName = await screen.findByText(/Darshan_mock_data/i);
-  expect(userName).toBeInTheDocument();
+    fireEvent.change(userEle, { target: { value: testuserValue } });
+    fireEvent.change(passwordEle, { target: { value: testpasswordValue } });
+    fireEvent.click(ele);
+    const userName = await screen.findByText(/Darshan_mock_data/i);
+    expect(userName).toBeInTheDocument();
 });

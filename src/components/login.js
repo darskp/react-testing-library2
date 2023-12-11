@@ -12,28 +12,27 @@ const Login = () => {
         e.preventDefault();
         setLoading(true)
         try {
-            let response = await axios.get(`https://jsonplaceholder.typicode.com/users/1`);
-            let data = response.data;
-            setData(data)
-            console.log(response);
+            let { data } = await axios.get(`https://jsonplaceholder.typicode.com/users/1`);
+            if (data) {
+                setData(data)
+            }
         }
-        catch (e) {
+        catch {
             setError(true);
-            console.log(e);
         }
         setLoading(false)
     }
-    return (<>
+    return (
         <div className="container">
-            <span className="user">{data.name ?? ""}</span>
-            <form onSubmit={handleSubmit}>
+            <span className="user">{data.name}</span>
+            <form>
                 <input type="text" onChange={(e) => setUsername(e.target.value)} placeholder="Enter your Username" value={username} />
                 <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Enter your Password" value={password} />
-                <button disabled={!password || !username}>{loading ? "Please wait..." : "Login "} </button>
+                <button onClick={handleSubmit} disabled={!password || !username}>{loading ? "Please wait..." : "Login "} </button>
                 <span data-testid="error" style={{ visibility: error ? 'visible' : 'hidden' }}>Something went wrong!</span>
             </form>
         </div>
-    </>);
+    );
 }
 
 export default Login;
